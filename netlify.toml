@@ -2,7 +2,7 @@
 # Build output: static files -> .output/public, SSR function -> .netlify/functions-internal/server
 [build]
   command = "npm run build"
-  publish = ".output/public"
+  publish = "dist"
 
 [build.environment]
   NODE_VERSION = "22"
