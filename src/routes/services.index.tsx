@@ -1,0 +1,49 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { PageHero } from "@/components/PageHero";
+import { ServiceGrid } from "@/components/ServiceGrid";
+import { CTASection } from "@/components/CTASection";
+import { services } from "@/data/services";
+
+export const Route = createFileRoute("/services/")({
+  head: () => ({
+    meta: [
+      { title: "क्षेत्रीय राजनीतिक सेवाएं | MUM India PR" },
+      {
+        name: "description",
+        content:
+          "गौतम बुद्ध नगर, नोएडा, दादरी, जेवर, बुलंदशहर, स्याना और अनूपशहर के लिए राजनीतिक प्रचार और जनसंपर्क सेवाएं।",
+      },
+      { property: "og:title", content: "क्षेत्रीय राजनीतिक सेवाएं | MUM India PR" },
+      {
+        property: "og:description",
+        content: "उत्तर प्रदेश के प्रमुख क्षेत्रों के लिए राजनीतिक प्रमोशन सेवाएं।",
+      },
+    ],
+  }),
+  component: ServicesPage,
+});
+
+function ServicesPage() {
+  return (
+    <>
+      <PageHero
+        eyebrow="सेवाएं"
+        title="हमारी क्षेत्रीय राजनीतिक सेवाएं"
+        description="उत्तर प्रदेश के प्रमुख क्षेत्रों के लिए राजनीतिक प्रचार, जनसंपर्क और डिजिटल विजिबिलिटी सेवाएं।"
+        hindi
+      />
+      <section className="section-y bg-background">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <ServiceGrid services={services} />
+        </div>
+      </section>
+      <CTASection
+        title="अपनी राजनीतिक पहचान को मजबूत बनाइए"
+        description="अपने क्षेत्र और आवश्यकता के अनुसार प्रचार योजना के लिए हमसे संपर्क करें।"
+        primaryLabel="अभी संपर्क करें"
+        secondaryLabel="प्रमोशन प्लान देखें"
+        hindi
+      />
+    </>
+  );
+}

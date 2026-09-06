@@ -1,0 +1,9 @@
+# Netlify deploy config for the TanStack Start (Nitro) app.
+# Build output: static files -> .output/public, SSR function -> .netlify/functions-internal/server
+[build]
+  command = "npm run build"
+  publish = ".output/public"
+
+[build.environment]
+  NODE_VERSION = "22"
+  NPM_FLAGS = "--legacy-peer-deps"

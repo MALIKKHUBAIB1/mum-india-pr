@@ -1,0 +1,51 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { PageHero } from "@/components/PageHero";
+import { BlogCard } from "@/components/BlogCard";
+import { CTASection } from "@/components/CTASection";
+import { blogPosts } from "@/data/site";
+
+export const Route = createFileRoute("/blog")({
+  head: () => ({
+    meta: [
+      { title: "Political Marketing & Campaign Guides | MUM India PR" },
+      {
+        name: "description",
+        content:
+          "Guides on political marketing, campaign strategy, social media branding and local digital promotion.",
+      },
+      { property: "og:title", content: "Political Marketing & Campaign Guides" },
+      {
+        property: "og:description",
+        content: "Practical writing on political branding, public relations and digital promotion.",
+      },
+    ],
+  }),
+  component: BlogPage,
+});
+
+function BlogPage() {
+  return (
+    <>
+      <PageHero
+        eyebrow="Insights"
+        title="Political Marketing & Campaign Guides"
+        description="Practical guidance on political branding, campaign strategy, public relations and digital promotion."
+      />
+      <section className="section-y bg-background">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {blogPosts.map((post) => (
+              <BlogCard key={post.slug} post={post} />
+            ))}
+          </div>
+        </div>
+      </section>
+      <CTASection
+        title="Want this applied to your campaign?"
+        description="Our team can turn these approaches into a promotion plan for your region."
+        primaryLabel="Request Consultation"
+        secondaryLabel="View Plans"
+      />
+    </>
+  );
+}
