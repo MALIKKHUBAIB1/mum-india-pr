@@ -7,7 +7,7 @@ import { blogPosts } from "@/data/site";
 export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
-      { title: "Political Marketing & Campaign Guides | MUM India PR" },
+      { title: "Political Marketing & Campaign Guides | Mum India Strategy Research Pvt Ltd" },
       {
         name: "description",
         content:

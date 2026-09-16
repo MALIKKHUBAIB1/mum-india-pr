@@ -11,7 +11,7 @@ const LOGO_SRC = "/logo.jpeg";
 
 export function Logo({ className, onDark = false }: { className?: string; onDark?: boolean }) {
   return (
-    <Link to="/" className={cn("flex items-center gap-3", className)} aria-label="MUM India PR — home">
+    <Link to="/" className={cn("flex items-center gap-3", className)} aria-label="Mum India Strategy Research Pvt Ltd — home">
       <img
         src={LOGO_SRC}
         onError={(e) => {
@@ -19,7 +19,7 @@ export function Logo({ className, onDark = false }: { className?: string; onDark
           if (e.currentTarget.src.endsWith("/favicon.png")) return;
           e.currentTarget.src = "/favicon.png";
         }}
-        alt="MUM India PR logo"
+        alt="Mum India Strategy Research Pvt Ltd logo"
         width={48}
         height={48}
         className="h-12 w-12 rounded-md bg-white object-contain p-0.5"

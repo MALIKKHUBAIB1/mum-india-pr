@@ -19,7 +19,7 @@ export const Route = createFileRoute("/services/$slug")({
       };
     }
     const { service } = loaderData;
-    const title = `${service.title} | MUM India PR`;
+    const title = `${service.title} | Mum India Strategy Research Pvt Ltd`;
     return {
       meta: [
         { title },

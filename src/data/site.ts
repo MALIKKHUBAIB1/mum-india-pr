@@ -3,9 +3,15 @@ import blog2 from "@/assets/blog-2.jpg";
 import blog3 from "@/assets/blog-3.jpg";
 import blog4 from "@/assets/blog-4.jpg";
 
+export const companyInfo = {
+  name: "Mum India Strategy Research Pvt Ltd",
+  brand: "MUM India PR",
+  email: "Info@mumindiapr.com",
+};
+
 export const contactInfo = {
   phone: "+91 00000 00000",
-  email: "hello@example.com",
+  email: "Info@mumindiapr.com",
   whatsapp: "+91 00000 00000",
   whatsappLink: "https://wa.me/910000000000",
   location: "Regional office address — to be added",

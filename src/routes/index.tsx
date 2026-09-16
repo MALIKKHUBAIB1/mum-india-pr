@@ -23,7 +23,7 @@ import { blogPosts, testimonials } from "@/data/site";
 export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
-      { title: "Political Promotion & Regional Campaign Services | MUM India PR" },
+      { title: "Political Promotion & Regional Campaign Services | Mum India Strategy Research Pvt Ltd" },
       {
         name: "description",
         content:
@@ -31,7 +31,7 @@ export const Route = createFileRoute("/")({
       },
       {
         property: "og:title",
-        content: "Political Promotion & Regional Campaign Services | MUM India PR",
+        content: "Political Promotion & Regional Campaign Services | Mum India Strategy Research Pvt Ltd",
       },
       {
         property: "og:description",

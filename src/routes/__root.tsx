@@ -82,13 +82,13 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "MUM India PR — Political Promotion Services" },
+      { title: "Mum India Strategy Research Pvt Ltd — Political Promotion Services" },
       {
         name: "description",
         content:
           "Political promotion, regional campaign visibility and digital branding services for leaders and public representatives.",
       },
-      { name: "author", content: "MUM India PR" },
+      { name: "author", content: "Mum India Strategy Research Pvt Ltd" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

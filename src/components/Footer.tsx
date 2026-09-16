@@ -86,7 +86,7 @@ export function Footer() {
 
         <div className="mt-14 flex flex-col gap-6 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-primary-foreground/60">
-            © {new Date().getFullYear()} MUM India PR. All rights reserved.
+            © {new Date().getFullYear()} Mum India Strategy Research Pvt Ltd. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
             {socials.map(({ label, Icon }) => (

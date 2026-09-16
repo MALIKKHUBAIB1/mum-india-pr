@@ -8,13 +8,13 @@ import { contactInfo } from "@/data/site";
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
-      { title: "Contact — Let's Discuss Your Promotion | MUM India PR" },
+      { title: "Contact — Let's Discuss Your Promotion | Mum India Strategy Research Pvt Ltd" },
       {
         name: "description",
         content:
           "Contact our political promotion team by form, phone, email or WhatsApp to discuss your regional campaign.",
       },
-      { property: "og:title", content: "Contact | MUM India PR" },
+      { property: "og:title", content: "Contact | Mum India Strategy Research Pvt Ltd" },
       {
         property: "og:description",
         content: "Discuss your political promotion requirement with our team.",

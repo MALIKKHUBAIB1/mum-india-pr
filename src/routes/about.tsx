@@ -7,13 +7,13 @@ import { CTASection } from "@/components/CTASection";
 export const Route = createFileRoute("/about")({
   head: () => ({
     meta: [
-      { title: "About Us | MUM India PR" },
+      { title: "About Us | Mum India Strategy Research Pvt Ltd" },
       {
         name: "description",
         content:
           "We help political leaders, representatives and public figures strengthen their digital presence and communicate their work effectively.",
       },
-      { property: "og:title", content: "About Us | MUM India PR" },
+      { property: "og:title", content: "About Us | Mum India Strategy Research Pvt Ltd" },
       {
         property: "og:description",
         content: "Political promotion, regional expertise and digital campaign support.",
@@ -64,7 +64,7 @@ function AboutPage() {
           <div>
             <SectionHeading eyebrow="Who We Are" title="A promotion team built around political communication" />
             <p className="mt-5 text-base leading-relaxed text-muted-foreground">
-              MUM India PR is a political promotion and regional campaign services brand. We
+              Mum India Strategy Research Pvt Ltd is a political promotion and regional campaign services brand. We
               work with leaders, representatives, candidates and political organisations to present
               their work, activities and message in a professional, consistent way.
             </p>

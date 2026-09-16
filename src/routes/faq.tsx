@@ -7,13 +7,13 @@ import { faqs } from "@/data/site";
 export const Route = createFileRoute("/faq")({
   head: () => ({
     meta: [
-      { title: "Frequently Asked Questions | MUM India PR" },
+      { title: "Frequently Asked Questions | Mum India Strategy Research Pvt Ltd" },
       {
         name: "description",
         content:
           "Answers about political promotion services, packages, regional campaigns, timelines and pricing.",
       },
-      { property: "og:title", content: "Frequently Asked Questions | MUM India PR" },
+      { property: "og:title", content: "Frequently Asked Questions | Mum India Strategy Research Pvt Ltd" },
       {
         property: "og:description",
         content: "Common questions about our political promotion packages and process.",

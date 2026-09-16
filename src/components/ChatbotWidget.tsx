@@ -71,7 +71,7 @@ export function ChatbotWidget() {
         <div className="flex h-[28rem] w-[min(22rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-lg border border-border bg-card shadow-[var(--shadow-lift)]">
           <div className="flex items-center justify-between bg-navy-deep px-4 py-3">
             <div>
-              <p className="text-sm font-bold text-primary-foreground">MUM India PR</p>
+              <p className="text-sm font-bold text-primary-foreground">Mum India Strategy Research Pvt Ltd</p>
               <p className="text-xs text-primary-foreground/60">Typically replies during work hours</p>
             </div>
             <button

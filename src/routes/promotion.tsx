@@ -9,7 +9,7 @@ import { plans, promotionProducts, howItWorks } from "@/data/promotion";
 export const Route = createFileRoute("/promotion")({
   head: () => ({
     meta: [
-      { title: "Political Promotion Plans & Pricing | MUM India PR" },
+      { title: "Political Promotion Plans & Pricing | Mum India Strategy Research Pvt Ltd" },
       {
         name: "description",
         content:

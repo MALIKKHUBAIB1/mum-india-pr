@@ -7,13 +7,13 @@ import { testimonials } from "@/data/site";
 export const Route = createFileRoute("/testimonials")({
   head: () => ({
     meta: [
-      { title: "Client Feedback | MUM India PR" },
+      { title: "Client Feedback | Mum India Strategy Research Pvt Ltd" },
       {
         name: "description",
         content:
           "Feedback from political representatives and campaign teams about our promotion and creative support.",
       },
-      { property: "og:title", content: "Client Feedback | MUM India PR" },
+      { property: "og:title", content: "Client Feedback | Mum India Strategy Research Pvt Ltd" },
       {
         property: "og:description",
         content: "What political teams say about working with our promotion services.",

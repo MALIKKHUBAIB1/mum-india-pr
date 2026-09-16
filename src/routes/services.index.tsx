@@ -7,13 +7,13 @@ import { services } from "@/data/services";
 export const Route = createFileRoute("/services/")({
   head: () => ({
     meta: [
-      { title: "क्षेत्रीय राजनीतिक सेवाएं | MUM India PR" },
+      { title: "क्षेत्रीय राजनीतिक सेवाएं | Mum India Strategy Research Pvt Ltd" },
       {
         name: "description",
         content:
           "गौतम बुद्ध नगर, नोएडा, दादरी, जेवर, बुलंदशहर, स्याना और अनूपशहर के लिए राजनीतिक प्रचार और जनसंपर्क सेवाएं।",
       },
-      { property: "og:title", content: "क्षेत्रीय राजनीतिक सेवाएं | MUM India PR" },
+      { property: "og:title", content: "क्षेत्रीय राजनीतिक सेवाएं | Mum India Strategy Research Pvt Ltd" },
       {
         property: "og:description",
         content: "उत्तर प्रदेश के प्रमुख क्षेत्रों के लिए राजनीतिक प्रमोशन सेवाएं।",

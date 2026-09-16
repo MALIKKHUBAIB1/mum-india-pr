@@ -4,12 +4,12 @@ import { PageHero } from "@/components/PageHero";
 export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
     meta: [
-      { title: "Privacy Policy | MUM India PR" },
+      { title: "Privacy Policy | Mum India Strategy Research Pvt Ltd" },
       {
         name: "description",
-        content: "How MUM India PR collects, uses and protects the information you share with us.",
+        content: "How Mum India Strategy Research Pvt Ltd collects, uses and protects the information you share with us.",
       },
-      { property: "og:title", content: "Privacy Policy | MUM India PR" },
+      { property: "og:title", content: "Privacy Policy | Mum India Strategy Research Pvt Ltd" },
       { property: "og:description", content: "Our approach to your data and enquiry details." },
     ],
   }),

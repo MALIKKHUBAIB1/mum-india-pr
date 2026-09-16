@@ -4,12 +4,12 @@ import { PageHero } from "@/components/PageHero";
 export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
-      { title: "Terms & Conditions | MUM India PR" },
+      { title: "Terms & Conditions | Mum India Strategy Research Pvt Ltd" },
       {
         name: "description",
         content: "Terms governing the use of our website and our political promotion services.",
       },
-      { property: "og:title", content: "Terms & Conditions | MUM India PR" },
+      { property: "og:title", content: "Terms & Conditions | Mum India Strategy Research Pvt Ltd" },
       { property: "og:description", content: "Service terms, pricing and scope conditions." },
     ],
   }),
