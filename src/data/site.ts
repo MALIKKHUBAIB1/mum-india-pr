@@ -115,7 +115,8 @@ export const faqs = [
   },
   {
     q: "Are prices customizable?",
-    a: "The listed prices are indicative starting points. Final pricing depends on scope, region and campaign duration.",
+    // PRICE HIDDEN - original: "The listed prices are indicative starting points. Final pricing depends on scope, region and campaign duration."
+    a: "Yes. Pricing is tailored to your scope, region and campaign duration — contact us for a quote.",
   },
 ];
 
@@ -131,9 +132,13 @@ export const interestedServices = [
 ];
 
 export const packageOptions = [
-  "Starter Promotion — ₹4,999",
-  "Growth Promotion — ₹9,999",
-  "Authority Promotion — ₹19,999",
+  // PRICE HIDDEN - uncomment with prices when needed:
+  // "Starter Promotion — ₹4,999",
+  // "Growth Promotion — ₹9,999",
+  // "Authority Promotion — ₹19,999",
+  "Starter Promotion",
+  "Growth Promotion",
+  "Authority Promotion",
   "Custom Package",
   "Not decided yet",
 ];

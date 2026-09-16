@@ -31,12 +31,12 @@ function replyFor(action: string): Message {
     case "Promotion Plans":
       return {
         from: "bot",
-        text: "We offer Starter (₹4,999), Growth (₹9,999) and Authority (₹19,999) promotion plans. Open the Promotion page for full details.",
+        text: "We offer Starter, Growth and Authority promotion plans. Open the Promotion page for details or contact us for pricing.",
       };
     case "Pricing":
       return {
         from: "bot",
-        text: "Individual services start at ₹2,999. Final pricing depends on region, scope and campaign duration.",
+        text: "Contact us for detailed pricing — it depends on region, scope and campaign duration.",
       };
     case "Talk to Our Team":
       return {

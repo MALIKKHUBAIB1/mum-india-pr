@@ -20,7 +20,8 @@ export function PromotionProductCard({ product }: { product: PromotionProduct })
       </p>
 
       <div className="mt-6 flex items-center justify-between border-t border-border pt-5">
-        <span className="text-2xl font-extrabold text-navy">{product.price}</span>
+        {/* PRICE HIDDEN - uncomment to restore: <span className="text-2xl font-extrabold text-navy">{product.price}</span> */}
+        <span className="text-sm font-semibold text-muted-foreground">Contact for pricing</span>
         <Button asChild variant="outlineAccent" size="sm">
           <Link to="/contact">
             Get Started <ArrowRight className="size-3.5" />

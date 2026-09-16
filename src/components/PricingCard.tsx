@@ -23,11 +23,16 @@ export function PricingCard({ plan }: { plan: Plan }) {
       <h3 className="text-lg font-bold text-navy">{plan.name}</h3>
       <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{plan.summary}</p>
 
+      {/* PRICE HIDDEN - uncomment to restore
       <div className="mt-6 flex items-end gap-2 border-b border-border pb-6">
         <span className="text-4xl font-extrabold tracking-tight text-navy">{plan.price}</span>
         <span className="pb-1 text-xs font-bold uppercase tracking-wider text-muted-foreground">
           {plan.cadence}
         </span>
+      </div>
+      */}
+      <div className="mt-6 border-b border-border pb-6">
+        <span className="text-sm font-semibold text-muted-foreground">Contact for pricing</span>
       </div>
 
       <ul className="mt-6 flex-1 space-y-3">

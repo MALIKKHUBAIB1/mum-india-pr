@@ -13,7 +13,7 @@ export const Route = createFileRoute("/promotion")({
       {
         name: "description",
         content:
-          "Choose a political promotion package — profile promotion, social creatives, video content and regional campaign visibility from ₹2,999.",
+          "Choose a political promotion package — profile promotion, social creatives, video content and regional campaign visibility. Contact for pricing.",
       },
       { property: "og:title", content: "Political Promotion Plans & Pricing" },
       {
@@ -42,9 +42,14 @@ function PromotionPage() {
               <PricingCard key={plan.id} plan={plan} />
             ))}
           </div>
+          {/* PRICE HIDDEN - uncomment to restore
           <p className="mt-8 text-center text-xs text-muted-foreground">
             Listed prices are indicative. Final pricing depends on region, scope and campaign
             duration.
+          </p>
+          */}
+          <p className="mt-8 text-center text-xs text-muted-foreground">
+            Contact us for pricing — tailored to your region, scope and campaign duration.
           </p>
         </div>
       </section>
