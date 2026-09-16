@@ -12,7 +12,13 @@ export default defineConfig({
     // nitro/vite builds from this
     server: { entry: "server" },
   },
-  // Self-hosted deploys target Netlify (Nitro's auto-detection also respects
-  // NITRO_PRESET / Netlify env, this just hard-pins it for `npm run build`).
-  nitro: { preset: "netlify" },
+  // Nitro preset is auto-detected from the hosting env:
+  // - Vercel (VERCEL=1) -> "vercel"
+  // - Netlify (NETLIFY=true) -> "netlify"
+  // - Cloudflare/local fallback -> "cloudflare-module"
+  // Do NOT hard-pin to "netlify" or Vercel builds will output the wrong
+  // format (static `dist/` with no index.html) and return 404 NOT_FOUND.
+  nitro: {
+    preset: process.env.VERCEL ? "vercel" : process.env.NETLIFY ? "netlify" : undefined,
+  },
 });

@@ -1,5 +1,8 @@
 # Netlify deploy config for the TanStack Start (Nitro) app.
-# Build output: static files -> .output/public, SSR function -> .netlify/functions-internal/server
+# Nitro "netlify" preset outputs:
+#   static files -> dist/  (client assets)
+#   SSR function -> .netlify/functions-internal/server
+# For local Cloudflare preset, output is .output/public + .output/server
 [build]
   command = "npm run build"
   publish = "dist"

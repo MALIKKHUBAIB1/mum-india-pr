@@ -20,8 +20,9 @@ dist-ssr
 .wrangler/
 .dev.vars
 
-# Netlify build artifacts (regenerated on every build/deploy)
+# Build artifacts (regenerated on every build/deploy)
 .netlify/
+.vercel/
 
 # Editor directories and files
 .vscode/*
