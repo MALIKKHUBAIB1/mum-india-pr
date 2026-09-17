@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { interestedServices, packageOptions } from "@/data/site";
+import { sendConsultationRequest } from "@/lib/inquiry.server";
 
 const leadSchema = z.object({
   name: z.string().trim().min(2, "Please enter your full name").max(100),
@@ -52,7 +53,7 @@ export function LeadForm({ defaultPackage }: { defaultPackage?: string }) {
   const set = (key: keyof LeadFields, value: string) =>
     setValues((v) => ({ ...v, [key]: value }));
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = leadSchema.safeParse(values);
     if (!parsed.success) {
@@ -66,12 +67,16 @@ export function LeadForm({ defaultPackage }: { defaultPackage?: string }) {
     }
     setErrors({});
     setSubmitting(true);
-    // Submission endpoint can be connected later.
-    window.setTimeout(() => {
-      setSubmitting(false);
+    try {
+      await sendConsultationRequest({ data: parsed.data });
       setValues({ ...empty, packageName: defaultPackage ?? "" });
       toast.success("Thank you. Our team will contact you shortly.");
-    }, 600);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to send request. Please try again.";
+      toast.error(msg);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const Error = ({ name }: { name: keyof LeadFields }) =>

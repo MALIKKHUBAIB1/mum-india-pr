@@ -16,6 +16,12 @@ dist-ssr
 .nitro
 *.local
 
+# Env (contains SMTP secrets - never commit)
+.env
+.env.*
+src/.env
+!.env.example
+
 # Wrangler / Cloudflare
 .wrangler/
 .dev.vars

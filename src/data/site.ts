@@ -10,10 +10,11 @@ export const companyInfo = {
 };
 
 export const contactInfo = {
-  phone: "+91 00000 00000",
+  phone: "+91 9315203034",
   email: "Info@mumindiapr.com",
-  whatsapp: "+91 00000 00000",
-  whatsappLink: "https://wa.me/910000000000",
+  whatsapp: "+91 9315203034",
+  whatsappLink:
+    "https://wa.me/919315203034?text=Hello%20Mum%20India%20Strategy%20Research%20Pvt%20Ltd%2C%20I%20want%20to%20know%20more%20about%20your%20political%20promotion%20services.",
   location: "Regional office address — to be added",
   hours: "Mon – Sat, 10:00 AM – 7:00 PM",
 };

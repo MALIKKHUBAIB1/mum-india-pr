@@ -24,20 +24,23 @@ export function Logo({ className, onDark = false }: { className?: string; onDark
         height={48}
         className="h-12 w-12 rounded-md bg-white object-contain p-0.5"
       />
-      <span className="hidden leading-tight sm:block">
+      <span className="hidden flex-col justify-center sm:flex">
+        <span className="block text-[0.95rem] font-extrabold leading-tight tracking-tight">
+          <span className={cn(onDark ? "text-primary-foreground" : "text-navy")}>MUM INDIA</span>
+        </span>
+        <span className="mt-1 block text-[0.78rem] font-extrabold leading-tight tracking-tight text-india-green">
+          STRATEGY RESEARCH PVT LTD
+        </span>
+        {/* Previous brand - commented for restore:
         <span className="block text-base font-extrabold tracking-tight">
           <span className={cn(onDark ? "text-primary-foreground" : "text-navy")}>MUM </span>
           <span className="text-india-green">INDIA </span>
           <span className="text-accent">PR</span>
         </span>
-        <span
-          className={cn(
-            "block text-[0.65rem] font-bold uppercase tracking-[0.28em]",
-            onDark ? "text-primary-foreground/70" : "text-muted-foreground",
-          )}
-        >
+        <span className={cn("block text-[0.65rem] font-bold uppercase tracking-[0.28em]", onDark ? "text-primary-foreground/70" : "text-muted-foreground")}>
           Political Promotion
         </span>
+        */}
       </span>
     </Link>
 

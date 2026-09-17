@@ -6,6 +6,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { interestedServices } from "@/data/site";
+import { sendContactInquiry } from "@/lib/inquiry.server";
 
 const contactSchema = z.object({
   name: z.string().trim().min(2, "Please enter your full name").max(100),
@@ -34,7 +35,7 @@ export function ContactForm({ defaultService }: { defaultService?: string }) {
 
   const set = (key: keyof Fields, value: string) => setValues((v) => ({ ...v, [key]: value }));
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     const parsed = contactSchema.safeParse(values);
     if (!parsed.success) {
@@ -46,11 +47,16 @@ export function ContactForm({ defaultService }: { defaultService?: string }) {
     }
     setErrors({});
     setSubmitting(true);
-    window.setTimeout(() => {
-      setSubmitting(false);
+    try {
+      await sendContactInquiry({ data: parsed.data });
       setValues({ ...empty, service: defaultService ?? "" });
       toast.success("Inquiry sent. Our team will get back to you soon.");
-    }, 600);
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : "Failed to send inquiry. Please try again.";
+      toast.error(msg);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const Error = ({ name }: { name: keyof Fields }) =>
