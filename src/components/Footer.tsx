@@ -33,10 +33,10 @@ const columns = [
 ] as const;
 
 const socials = [
-  { label: "Facebook", Icon: Facebook },
-  { label: "Instagram", Icon: Instagram },
-  { label: "YouTube", Icon: Youtube },
-  { label: "LinkedIn", Icon: Linkedin },
+  { label: "Facebook", Icon: Facebook, href: "#" },
+  { label: "Instagram", Icon: Instagram, href: "https://www.instagram.com/mumindiapr/?hl=de" },
+  { label: "YouTube", Icon: Youtube, href: "https://www.youtube.com/channel/UCdkC_YUP9LXl8BwqNcCyrVg" },
+  { label: "LinkedIn", Icon: Linkedin, href: "https://www.linkedin.com/in/mum-india-pr-50a381434/" },
 ];
 
 export function Footer() {
@@ -89,10 +89,12 @@ export function Footer() {
             © {new Date().getFullYear()} Mum India Strategy Research Pvt Ltd. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
-            {socials.map(({ label, Icon }) => (
+            {socials.map(({ label, Icon, href }) => (
               <a
                 key={label}
-                href="#"
+                href={href}
+                target={href.startsWith("http") ? "_blank" : undefined}
+                rel={href.startsWith("http") ? "noopener noreferrer" : undefined}
                 aria-label={label}
                 className="inline-flex size-9 items-center justify-center rounded-md border border-white/15 text-primary-foreground/80 transition-colors hover:border-accent hover:bg-accent hover:text-accent-foreground"
               >
