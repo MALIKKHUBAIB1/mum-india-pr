@@ -15,7 +15,7 @@ export const contactInfo = {
   whatsapp: "+91 9315203034",
   whatsappLink:
     "https://wa.me/919315203034?text=Hello%20Mum%20India%20Strategy%20Research%20Pvt%20Ltd%2C%20I%20want%20to%20know%20more%20about%20your%20political%20promotion%20services.",
-  location: "Regional office address — to be added",
+  location: "3rd Floor, Neelkanth Plaza, O-319, Alpha-I Commercial Belt, Block E, Alpha I, Greater Noida, Uttar Pradesh 201308",
   hours: "Mon – Sat, 10:00 AM – 7:00 PM",
 };
 
