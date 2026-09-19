@@ -18,7 +18,12 @@ export const Route = createFileRoute("/services/")({
         property: "og:description",
         content: "उत्तर प्रदेश के प्रमुख क्षेत्रों के लिए राजनीतिक प्रमोशन सेवाएं।",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
+      { property: "og:url", content: "https://mumindiapr.com/services" },
     ],
+    links: [{ rel: "canonical", href: "https://mumindiapr.com/services" }],
   }),
   component: ServicesPage,
 });

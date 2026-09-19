@@ -38,7 +38,12 @@ export const Route = createFileRoute("/")({
         content:
           "Build your political presence with regional promotion, branding and digital campaign services.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
+      { property: "og:url", content: "https://mumindiapr.com/" },
     ],
+    links: [{ rel: "canonical", href: "https://mumindiapr.com/" }],
   }),
   component: Index,
 });

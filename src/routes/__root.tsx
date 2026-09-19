@@ -89,6 +89,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
           "Political promotion, regional campaign visibility and digital branding services for leaders and public representatives.",
       },
       { name: "author", content: "Mum India Strategy Research Pvt Ltd" },
+      { name: "google-site-verification", content: "OLmWm-EWYQHjgF3MeE5214UPNK65LnI_Z12JraC5KHs" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],

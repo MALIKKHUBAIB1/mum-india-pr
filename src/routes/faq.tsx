@@ -18,6 +18,10 @@ export const Route = createFileRoute("/faq")({
         property: "og:description",
         content: "Common questions about our political promotion packages and process.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
+      { property: "og:url", content: "https://mumindiapr.com/faq" },
     ],
     scripts: [
       {
@@ -33,6 +37,7 @@ export const Route = createFileRoute("/faq")({
         }),
       },
     ],
+    links: [{ rel: "canonical", href: "https://mumindiapr.com/faq" }],
   }),
   component: FaqPage,
 });

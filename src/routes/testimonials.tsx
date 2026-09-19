@@ -18,7 +18,12 @@ export const Route = createFileRoute("/testimonials")({
         property: "og:description",
         content: "What political teams say about working with our promotion services.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
+      { property: "og:url", content: "https://mumindiapr.com/testimonials" },
     ],
+    links: [{ rel: "canonical", href: "https://mumindiapr.com/testimonials" }],
   }),
   component: TestimonialsPage,
 });

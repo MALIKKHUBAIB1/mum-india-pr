@@ -21,7 +21,12 @@ export const Route = createFileRoute("/promotion")({
         content:
           "Starter, Growth and Authority promotion plans plus individual political branding services.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
+      { property: "og:url", content: "https://mumindiapr.com/promotion" },
     ],
+    links: [{ rel: "canonical", href: "https://mumindiapr.com/promotion" }],
   }),
   component: PromotionPage,
 });

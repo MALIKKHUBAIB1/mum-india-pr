@@ -10,8 +10,13 @@ export const Route = createFileRoute("/privacy-policy")({
         content: "How Mum India Strategy Research Pvt Ltd collects, uses and protects the information you share with us.",
       },
       { property: "og:title", content: "Privacy Policy | Mum India Strategy Research Pvt Ltd" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
+      { property: "og:url", content: "https://mumindiapr.com/privacy-policy" },
       { property: "og:description", content: "Our approach to your data and enquiry details." },
     ],
+    links: [{ rel: "canonical", href: "https://mumindiapr.com/privacy-policy" }],
   }),
   component: PrivacyPage,
 });

@@ -20,13 +20,19 @@ export const Route = createFileRoute("/services/$slug")({
     }
     const { service } = loaderData;
     const title = `${service.title} | Mum India Strategy Research Pvt Ltd`;
+    const canonical = `https://mumindiapr.com/services/${service.slug}`;
     return {
       meta: [
         { title },
         { name: "description", content: service.shortDescription },
         { property: "og:title", content: title },
         { property: "og:description", content: service.shortDescription },
+        { property: "og:type", content: "website" },
+        { name: "twitter:card", content: "summary_large_image" },
+        { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
+        { property: "og:url", content: canonical },
       ],
+      links: [{ rel: "canonical", href: canonical }],
     };
   },
   notFoundComponent: ServiceNotFound,

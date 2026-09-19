@@ -18,7 +18,12 @@ export const Route = createFileRoute("/about")({
         property: "og:description",
         content: "Political promotion, regional expertise and digital campaign support.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
+      { property: "og:url", content: "https://mumindiapr.com/about" },
     ],
+    links: [{ rel: "canonical", href: "https://mumindiapr.com/about" }],
   }),
   component: AboutPage,
 });

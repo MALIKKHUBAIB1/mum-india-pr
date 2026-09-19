@@ -19,7 +19,12 @@ export const Route = createFileRoute("/contact")({
         property: "og:description",
         content: "Discuss your political promotion requirement with our team.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
+      { property: "og:url", content: "https://mumindiapr.com/contact" },
     ],
+    links: [{ rel: "canonical", href: "https://mumindiapr.com/contact" }],
   }),
   component: ContactPage,
 });

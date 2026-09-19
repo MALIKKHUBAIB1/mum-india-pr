@@ -18,7 +18,12 @@ export const Route = createFileRoute("/blog")({
         property: "og:description",
         content: "Practical writing on political branding, public relations and digital promotion.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
+      { property: "og:url", content: "https://mumindiapr.com/blog" },
     ],
+    links: [{ rel: "canonical", href: "https://mumindiapr.com/blog" }],
   }),
   component: BlogPage,
 });

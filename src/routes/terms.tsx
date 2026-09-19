@@ -10,8 +10,13 @@ export const Route = createFileRoute("/terms")({
         content: "Terms governing the use of our website and our political promotion services.",
       },
       { property: "og:title", content: "Terms & Conditions | Mum India Strategy Research Pvt Ltd" },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
+      { property: "og:url", content: "https://mumindiapr.com/terms" },
       { property: "og:description", content: "Service terms, pricing and scope conditions." },
     ],
+    links: [{ rel: "canonical", href: "https://mumindiapr.com/terms" }],
   }),
   component: TermsPage,
 });
