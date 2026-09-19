@@ -9,6 +9,7 @@ export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "Contact — Let's Discuss Your Promotion | Mum India Strategy Research Pvt Ltd" },
+      { name: "robots", content: "index, follow" },
       {
         name: "description",
         content:
@@ -24,6 +25,7 @@ export const Route = createFileRoute("/contact")({
       { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
       { property: "og:url", content: "https://mumindiapr.com/contact" },
     ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify({"@context": "https://schema.org", "@type": "ContactPage", "name": "Contact", "url": "https://mumindiapr.com/contact"}) }],
     links: [{ rel: "canonical", href: "https://mumindiapr.com/contact" }],
   }),
   component: ContactPage,

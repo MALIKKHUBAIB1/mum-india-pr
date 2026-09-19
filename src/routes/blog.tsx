@@ -8,6 +8,7 @@ export const Route = createFileRoute("/blog")({
   head: () => ({
     meta: [
       { title: "Political Marketing & Campaign Guides | Mum India Strategy Research Pvt Ltd" },
+      { name: "robots", content: "index, follow" },
       {
         name: "description",
         content:
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/blog")({
       { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
       { property: "og:url", content: "https://mumindiapr.com/blog" },
     ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify({"@context": "https://schema.org", "@type": "Blog", "name": "Political Marketing Guides", "url": "https://mumindiapr.com/blog"}) }],
     links: [{ rel: "canonical", href: "https://mumindiapr.com/blog" }],
   }),
   component: BlogPage,

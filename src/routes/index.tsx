@@ -24,6 +24,7 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Political Promotion & Regional Campaign Services | Mum India Strategy Research Pvt Ltd" },
+      { name: "robots", content: "index, follow" },
       {
         name: "description",
         content:
@@ -43,6 +44,7 @@ export const Route = createFileRoute("/")({
       { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
       { property: "og:url", content: "https://mumindiapr.com/" },
     ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify({"@context": "https://schema.org", "@type": "Organization", "name": "Mum India Strategy Research Pvt Ltd", "url": "https://mumindiapr.com/", "logo": "https://mumindiapr.com/logo.jpeg", "contactPoint": {"@type": "ContactPoint", "telephone": "+91-9315203034", "contactType": "customer service", "email": "Info@mumindiapr.com"}, "address": {"@type": "PostalAddress", "streetAddress": "3rd Floor, Neelkanth Plaza, O-319, Alpha-I Commercial Belt, Block E, Alpha I", "addressLocality": "Greater Noida", "addressRegion": "Uttar Pradesh", "postalCode": "201308", "addressCountry": "IN"}, "sameAs": ["https://www.instagram.com/mumindiapr/?hl=de", "https://www.youtube.com/channel/UCdkC_YUP9LXl8BwqNcCyrVg", "https://www.linkedin.com/in/mum-india-pr-50a381434/"]}) }],
     links: [{ rel: "canonical", href: "https://mumindiapr.com/" }],
   }),
   component: Index,

@@ -10,6 +10,7 @@ export const Route = createFileRoute("/promotion")({
   head: () => ({
     meta: [
       { title: "Political Promotion Plans & Pricing | Mum India Strategy Research Pvt Ltd" },
+      { name: "robots", content: "index, follow" },
       {
         name: "description",
         content:
@@ -26,6 +27,7 @@ export const Route = createFileRoute("/promotion")({
       { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
       { property: "og:url", content: "https://mumindiapr.com/promotion" },
     ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify({"@context": "https://schema.org", "@type": "CollectionPage", "name": "Political Promotion Plans", "url": "https://mumindiapr.com/promotion"}) }],
     links: [{ rel: "canonical", href: "https://mumindiapr.com/promotion" }],
   }),
   component: PromotionPage,

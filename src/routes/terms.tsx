@@ -5,6 +5,7 @@ export const Route = createFileRoute("/terms")({
   head: () => ({
     meta: [
       { title: "Terms & Conditions | Mum India Strategy Research Pvt Ltd" },
+      { name: "robots", content: "index, follow" },
       {
         name: "description",
         content: "Terms governing the use of our website and our political promotion services.",
@@ -16,6 +17,7 @@ export const Route = createFileRoute("/terms")({
       { property: "og:url", content: "https://mumindiapr.com/terms" },
       { property: "og:description", content: "Service terms, pricing and scope conditions." },
     ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify({"@context": "https://schema.org", "@type": "WebPage", "name": "Terms & Conditions", "url": "https://mumindiapr.com/terms"}) }],
     links: [{ rel: "canonical", href: "https://mumindiapr.com/terms" }],
   }),
   component: TermsPage,

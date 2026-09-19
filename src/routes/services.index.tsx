@@ -8,6 +8,7 @@ export const Route = createFileRoute("/services/")({
   head: () => ({
     meta: [
       { title: "क्षेत्रीय राजनीतिक सेवाएं | Mum India Strategy Research Pvt Ltd" },
+      { name: "robots", content: "index, follow" },
       {
         name: "description",
         content:
@@ -23,6 +24,7 @@ export const Route = createFileRoute("/services/")({
       { property: "og:image", content: "https://mumindiapr.com/logo.jpeg" },
       { property: "og:url", content: "https://mumindiapr.com/services" },
     ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify({"@context": "https://schema.org", "@type": "CollectionPage", "name": "Regional Political Services", "url": "https://mumindiapr.com/services"}) }],
     links: [{ rel: "canonical", href: "https://mumindiapr.com/services" }],
   }),
   component: ServicesPage,

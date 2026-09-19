@@ -5,6 +5,7 @@ export const Route = createFileRoute("/privacy-policy")({
   head: () => ({
     meta: [
       { title: "Privacy Policy | Mum India Strategy Research Pvt Ltd" },
+      { name: "robots", content: "index, follow" },
       {
         name: "description",
         content: "How Mum India Strategy Research Pvt Ltd collects, uses and protects the information you share with us.",
@@ -16,6 +17,7 @@ export const Route = createFileRoute("/privacy-policy")({
       { property: "og:url", content: "https://mumindiapr.com/privacy-policy" },
       { property: "og:description", content: "Our approach to your data and enquiry details." },
     ],
+    scripts: [{ type: "application/ld+json", children: JSON.stringify({"@context": "https://schema.org", "@type": "WebPage", "name": "Privacy Policy", "url": "https://mumindiapr.com/privacy-policy"}) }],
     links: [{ rel: "canonical", href: "https://mumindiapr.com/privacy-policy" }],
   }),
   component: PrivacyPage,
