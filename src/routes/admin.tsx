@@ -15,6 +15,8 @@ import {
   Upload,
   Mail,
   Lock,
+  Eye,
+  EyeOff,
   Loader2,
   CheckCircle2,
   Database,
@@ -246,6 +248,7 @@ function AdminPage() {
   const [authView, setAuthView] = useState<"loading" | "login" | "forgot" | "app">("loading");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPass, setShowPass] = useState(false);
   const [userEmail, setUserEmail] = useState("");
   const [busy, setBusy] = useState(false);
 
@@ -472,7 +475,15 @@ function AdminPage() {
                   <Label htmlFor="a-pass">Password</Label>
                   <div className="relative">
                     <Lock className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-                    <Input id="a-pass" type="password" required minLength={1} value={password} onChange={(e) => setPassword(e.target.value)} className="pl-9" placeholder="••••••••" />
+                    <Input id="a-pass" type={showPass ? "text" : "password"} required minLength={1} value={password} onChange={(e) => setPassword(e.target.value)} className="pl-9 pr-10" placeholder="••••••••" />
+                    <button
+                      type="button"
+                      onClick={() => setShowPass((v) => !v)}
+                      aria-label={showPass ? "Hide password" : "Show password"}
+                      className="absolute right-2 top-1/2 -translate-y-1/2 rounded p-1 text-muted-foreground hover:text-foreground"
+                    >
+                      {showPass ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+                    </button>
                   </div>
                 </div>
                 <Button type="submit" className="w-full" disabled={busy}>
