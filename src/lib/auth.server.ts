@@ -6,7 +6,7 @@ import {
   destroySession,
   findUserByEmail,
   hashPassword,
-  newResetToken,
+  newStatelessResetToken,
   updateUser,
   validateResetToken,
   validateSession,
@@ -21,15 +21,10 @@ const passwordSchema = z.string().min(8, "Password must be at least 8 characters
 const HARDCODED_EMAIL = "mumindiaadmin@gmail.com";
 const HARDCODED_PASSWORD = "admin@1234";
 
-/** Make sure the fixed owner account exists and matches the fixed password. */
+/** Make sure the fixed owner account exists (create-if-missing only). */
 async function ensureHardcodedAdmin() {
   const existing = await findUserByEmail(HARDCODED_EMAIL);
-  if (existing && (await verifyPassword(HARDCODED_PASSWORD, existing.passwordHash))) return existing;
-  if (existing) {
-    existing.passwordHash = await hashPassword(HARDCODED_PASSWORD);
-    await updateUser(existing);
-    return existing;
-  }
+  if (existing) return existing;
   return createUser(HARDCODED_EMAIL, HARDCODED_PASSWORD);
 }
 
@@ -50,14 +45,14 @@ export const loginAdmin = createServerFn({ method: "POST" })
     // Fixed owner login — always works.
     if (data.email === HARDCODED_EMAIL && data.password === HARDCODED_PASSWORD) {
       const user = await ensureHardcodedAdmin();
-      const token = await createSession(user.id);
+      const token = await createSession(user.email);
       return { ok: true as const, token, email: user.email };
     }
     const user = await findUserByEmail(data.email);
     if (!user || !(await verifyPassword(data.password, user.passwordHash))) {
       throw new Error("Invalid email or password.");
     }
-    const token = await createSession(user.id);
+    const token = await createSession(user.email);
     return { ok: true as const, token, email: user.email };
   });
 
@@ -81,13 +76,17 @@ export const requestPasswordReset = createServerFn({ method: "POST" })
     z.object({ email: emailSchema, origin: z.string().url().max(200) }).parse(d),
   )
   .handler(async ({ data }) => {
-    // Always return ok to avoid leaking which emails exist.
+    // The fixed owner account uses a permanent password — there is nothing to
+    // reset (and nowhere to store a new one on storage-less hosting).
+    if (data.email === HARDCODED_EMAIL) {
+      throw new Error("Ye admin account fixed password use karta hai, reset link nahi bheja ja sakta.");
+    }
+    // Always return ok for other emails to avoid leaking which exist.
     const user = await findUserByEmail(data.email);
     if (user) {
-      const { token, hash } = newResetToken();
-      user.resetHash = hash;
-      user.resetExpires = new Date(Date.now() + 3600e3).toISOString();
-      await updateUser(user);
+      // Self-contained token: verifiable without any storage, so it works on
+      // read-only serverless too.
+      const token = newStatelessResetToken(user.email);
       const origin = data.origin.replace(/\/$/, "");
       const link = `${origin}/admin/reset?token=${token}`;
       try {
@@ -117,11 +116,10 @@ export const resetPassword = createServerFn({ method: "POST" })
     // Token identifies the user only via stored hash; scan is fine at this scale.
     const user = await validateResetToken(data.token);
     if (!user) throw new Error("This reset link is invalid or expired.");
-    if (!user) throw new Error("This reset link is invalid or expired.");
     user.passwordHash = await hashPassword(data.password);
     delete user.resetHash;
     delete user.resetExpires;
     await updateUser(user);
-    const token = await createSession(user.id);
+    const token = await createSession(user.email);
     return { ok: true as const, token, email: user.email };
   });
