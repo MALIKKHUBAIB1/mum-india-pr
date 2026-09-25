@@ -2,7 +2,10 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/PageHero";
 import { ServiceGrid } from "@/components/ServiceGrid";
 import { CTASection } from "@/components/CTASection";
-import { services } from "@/data/services";
+import { services as fallbackServices } from "@/data/services";
+import { getManagedContent } from "@/lib/content.server";
+
+const imageBySlug = Object.fromEntries(fallbackServices.map((s) => [s.slug, s.image]));
 
 export const Route = createFileRoute("/services/")({
   head: () => ({
@@ -27,10 +30,24 @@ export const Route = createFileRoute("/services/")({
     scripts: [{ type: "application/ld+json", children: JSON.stringify({"@context": "https://schema.org", "@type": "CollectionPage", "name": "Regional Political Services", "url": "https://mumindiapr.com/services"}) }],
     links: [{ rel: "canonical", href: "https://mumindiapr.com/services" }],
   }),
+  loader: async () => {
+    try {
+      const data = await getManagedContent();
+      return {
+        services: data.services.map((s) => ({
+          ...s,
+          image: (s.image || imageBySlug[s.slug]) ?? fallbackServices[0]!.image,
+        })),
+      };
+    } catch {
+      return { services: fallbackServices };
+    }
+  },
   component: ServicesPage,
 });
 
 function ServicesPage() {
+  const { services } = Route.useLoaderData();
   return (
     <>
       <PageHero

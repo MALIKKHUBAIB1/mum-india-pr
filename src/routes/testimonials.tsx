@@ -2,7 +2,8 @@ import { createFileRoute } from "@tanstack/react-router";
 import { PageHero } from "@/components/PageHero";
 import { TestimonialCard } from "@/components/TestimonialCard";
 import { CTASection } from "@/components/CTASection";
-import { testimonials } from "@/data/site";
+import { testimonials as fallbackTestimonials } from "@/data/site";
+import { getManagedContent } from "@/lib/content.server";
 
 export const Route = createFileRoute("/testimonials")({
   head: () => ({
@@ -27,10 +28,19 @@ export const Route = createFileRoute("/testimonials")({
     scripts: [{ type: "application/ld+json", children: JSON.stringify({"@context": "https://schema.org", "@type": "CollectionPage", "name": "Client Feedback", "url": "https://mumindiapr.com/testimonials"}) }],
     links: [{ rel: "canonical", href: "https://mumindiapr.com/testimonials" }],
   }),
+  loader: async () => {
+    try {
+      const data = await getManagedContent();
+      return { testimonials: data.testimonials };
+    } catch {
+      return { testimonials: fallbackTestimonials };
+    }
+  },
   component: TestimonialsPage,
 });
 
 function TestimonialsPage() {
+  const { testimonials } = Route.useLoaderData();
   return (
     <>
       <PageHero
@@ -41,8 +51,14 @@ function TestimonialsPage() {
       <section className="section-y bg-background">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="grid gap-6 lg:grid-cols-3">
-            {testimonials.map((t) => (
-              <TestimonialCard key={t.role} {...t} />
+            {testimonials.map((t, i) => (
+              <TestimonialCard
+                key={"id" in t ? (t as { id: string }).id : `${t.role}-${i}`}
+                role={t.role}
+                quote={t.quote}
+                {...(t.context ? { context: t.context } : {})}
+                {...("image" in t && t.image ? { image: t.image as string } : {})}
+              />
             ))}
           </div>
         </div>

@@ -30,6 +30,12 @@ src/.env
 .netlify/
 .vercel/
 
+# Local admin CMS data (dev only — do NOT deploy).
+# Production seeds fresh at runtime so bundled image URLs resolve correctly;
+# use Supabase env vars for permanent production storage.
+content.db.json
+admin-auth.json
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

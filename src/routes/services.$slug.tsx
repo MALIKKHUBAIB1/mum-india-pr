@@ -5,12 +5,30 @@ import { CTASection } from "@/components/CTASection";
 import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceCard } from "@/components/ServiceCard";
 import { getService, services, serviceDeliverables, serviceAudience } from "@/data/services";
+import { getManagedContent } from "@/lib/content.server";
 
 export const Route = createFileRoute("/services/$slug")({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
+    try {
+      const data = await getManagedContent();
+      const managed = data.services.find((s) => s.slug === params.slug);
+      if (managed) {
+        const base = getService(params.slug);
+        const fallbackImg = services[0]!.image;
+        return {
+          service: { ...managed, image: managed.image || base?.image || fallbackImg },
+          allServices: data.services.map((s) => ({
+            ...s,
+            image: s.image || getService(s.slug)?.image || fallbackImg,
+          })),
+        };
+      }
+    } catch {
+      // fall through to static
+    }
     const service = getService(params.slug);
     if (!service) throw notFound();
-    return { service };
+    return { service, allServices: services };
   },
   head: ({ loaderData }) => {
     if (!loaderData) {
@@ -54,8 +72,8 @@ function ServiceNotFound() {
 }
 
 function ServiceDetail() {
-  const { service } = Route.useLoaderData();
-  const related = services.filter((s) => s.slug !== service.slug).slice(0, 3);
+  const { service, allServices } = Route.useLoaderData();
+  const related = allServices.filter((s) => s.slug !== service.slug).slice(0, 3);
 
   return (
     <>

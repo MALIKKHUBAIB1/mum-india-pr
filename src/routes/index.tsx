@@ -16,9 +16,10 @@ import { TestimonialCard } from "@/components/TestimonialCard";
 import { BlogCard } from "@/components/BlogCard";
 import { CTASection } from "@/components/CTASection";
 import { Button } from "@/components/ui/button";
-import { services } from "@/data/services";
+import { services as fallbackServices } from "@/data/services";
 import { plans, howItWorks } from "@/data/promotion";
-import { blogPosts, testimonials } from "@/data/site";
+import { blogPosts, testimonials as fallbackTestimonials } from "@/data/site";
+import { getManagedContent } from "@/lib/content.server";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -47,6 +48,21 @@ export const Route = createFileRoute("/")({
     scripts: [{ type: "application/ld+json", children: JSON.stringify({"@context": "https://schema.org", "@type": "Organization", "name": "Mum India Strategy Research Pvt Ltd", "url": "https://mumindiapr.com/", "logo": "https://mumindiapr.com/logo.jpeg", "contactPoint": {"@type": "ContactPoint", "telephone": "+91-9315203034", "contactType": "customer service", "email": "Info@mumindiapr.com"}, "address": {"@type": "PostalAddress", "streetAddress": "3rd Floor, Neelkanth Plaza, O-319, Alpha-I Commercial Belt, Block E, Alpha I", "addressLocality": "Greater Noida", "addressRegion": "Uttar Pradesh", "postalCode": "201308", "addressCountry": "IN"}, "sameAs": ["https://www.instagram.com/mumindiapr/?hl=de", "https://www.youtube.com/channel/UCdkC_YUP9LXl8BwqNcCyrVg", "https://www.linkedin.com/in/mum-india-pr-50a381434/"]}) }],
     links: [{ rel: "canonical", href: "https://mumindiapr.com/" }],
   }),
+  loader: async () => {
+    try {
+      const data = await getManagedContent();
+      const imageBySlug = Object.fromEntries(fallbackServices.map((s) => [s.slug, s.image]));
+      return {
+        services: data.services.map((s) => ({
+          ...s,
+          image: (s.image || imageBySlug[s.slug]) ?? fallbackServices[0]!.image,
+        })),
+        testimonials: data.testimonials,
+      };
+    } catch {
+      return { services: fallbackServices, testimonials: fallbackTestimonials };
+    }
+  },
   component: Index,
 });
 
@@ -84,6 +100,7 @@ const strengths = [
 ];
 
 function Index() {
+  const { services, testimonials } = Route.useLoaderData();
   return (
     <>
       <HeroSection />
@@ -189,8 +206,14 @@ function Index() {
             align="center"
           />
           <div className="mt-12 grid gap-6 lg:grid-cols-3">
-            {testimonials.map((t) => (
-              <TestimonialCard key={t.role} {...t} />
+            {testimonials.slice(0, 3).map((t, i) => (
+              <TestimonialCard
+                key={"id" in t ? (t as { id: string }).id : `${t.role}-${i}`}
+                role={t.role}
+                quote={t.quote}
+                {...(t.context ? { context: t.context } : {})}
+                {...("image" in t && t.image ? { image: t.image as string } : {})}
+              />
             ))}
           </div>
         </div>
