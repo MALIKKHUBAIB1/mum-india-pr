@@ -49,3 +49,4 @@ create policy "public read" on testimonials for select using (true);
 
 drop policy if exists "public read" on services;
 create policy "public read" on services for select using (true);
+
