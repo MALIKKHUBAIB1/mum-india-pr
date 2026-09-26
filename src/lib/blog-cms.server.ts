@@ -22,7 +22,7 @@ export function sanityConfigured() {
 async function sanityQuery<T>(groq: string, params: Record<string, string> = {}): Promise<T> {
   const env = sanityEnv();
   if (!env) throw new Error("sanity not configured");
-  const url = new URL(`https://${env.projectId}.api.sanity.io/v${API_VERSION}/data/query/${env.dataset}`);
+  const url = new URL(`https://${env.projectId}.apicdn.sanity.io/v${API_VERSION}/data/query/${env.dataset}`);
   url.searchParams.set("query", groq);
   for (const [k, v] of Object.entries(params)) url.searchParams.set(`$${k}`, v);
   const res = await fetch(url.toString(), {
