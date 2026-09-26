@@ -1,7 +1,7 @@
 import { createServerFn } from "@tanstack/react-start";
 import { z } from "zod";
 import { blogPosts as staticPosts } from "@/data/site";
-import type { BlogPostDetail, BlogPostSummary, PortableBlock } from "./blog-types";
+import type { BlogPostDetail, BlogPostSummary, Faq, PortableBlock } from "./blog-types";
 
 const API_VERSION = "2025-01-01";
 
@@ -24,7 +24,8 @@ async function sanityQuery<T>(groq: string, params: Record<string, string> = {})
   if (!env) throw new Error("sanity not configured");
   const url = new URL(`https://${env.projectId}.apicdn.sanity.io/v${API_VERSION}/data/query/${env.dataset}`);
   url.searchParams.set("query", groq);
-  for (const [k, v] of Object.entries(params)) url.searchParams.set(`$${k}`, v);
+  // Sanity expects param values JSON-encoded (strings need quotes).
+  for (const [k, v] of Object.entries(params)) url.searchParams.set(`$${k}`, JSON.stringify(v));
   const res = await fetch(url.toString(), {
     headers: env.token ? { Authorization: `Bearer ${env.token}` } : {},
     // Cache at Sanity CDN edge; our own short cache below absorbs bursts.
@@ -63,8 +64,16 @@ const DETAIL_QUERY = `*[_type == "post" && slug.current == $slug][0] {
   title,
   category,
   excerpt,
+  metaTitle,
+  metaDescription,
+  keywords,
   "date": publishedAt,
   "image": mainImage.asset->url,
+  authorName,
+  authorRole,
+  authorBio,
+  "authorImage": authorImage.asset->url,
+  faqs[]{question, answer},
   body[] {
     _type, _key, style, listItem, level, markDefs,
     children[] { _type, _key, text, marks },
@@ -104,7 +113,29 @@ function staticDetail(slug: string): BlogPostDetail | null {
       children: [{ _type: "span", text: p.excerpt }],
     },
   ];
-  return { ...p, body };
+  return {
+    ...p,
+    body,
+    faqs: [],
+    metaTitle: "",
+    metaDescription: "",
+    keywords: [] as string[],
+    authorName: "",
+    authorRole: "",
+    authorBio: "",
+    authorImage: "",
+  };
+}
+
+async function relatedPosts(currentSlug: string, category: string): Promise<BlogPostSummary[]> {
+  try {
+    const { posts } = await getBlogPosts();
+    const others = posts.filter((p) => p.slug !== currentSlug);
+    others.sort((a, b) => Number(b.category === category) - Number(a.category === category));
+    return others.slice(0, 3);
+  } catch {
+    return [];
+  }
 }
 
 export const getBlogPosts = createServerFn({ method: "GET" }).handler(async () => {
@@ -129,15 +160,37 @@ export const getBlogPost = createServerFn({ method: "GET" })
   .handler(async ({ data }) => {
     if (sanityEnv()) {
       try {
-        const row = await sanityQuery<(SanityListRow & { body?: PortableBlock[] }) | null>(DETAIL_QUERY, {
-          slug: data.slug,
-        });
+        const row = await sanityQuery<
+          (
+            SanityListRow & {
+              body?: PortableBlock[];
+              faqs?: Faq[];
+              metaTitle?: string;
+              metaDescription?: string;
+              keywords?: string[];
+              authorName?: string;
+              authorRole?: string;
+              authorBio?: string;
+              authorImage?: string;
+            }
+          ) | null
+        >(DETAIL_QUERY, { slug: data.slug });
         if (row) {
+          const post = {
+            ...toSummary(row),
+            body: Array.isArray(row.body) && row.body.length > 0 ? row.body : [],
+            faqs: Array.isArray(row.faqs) ? row.faqs.filter((f) => f.question && f.answer) : [],
+            metaTitle: row.metaTitle || "",
+            metaDescription: row.metaDescription || "",
+            keywords: Array.isArray(row.keywords) ? row.keywords.filter(Boolean) : [],
+            authorName: row.authorName || "",
+            authorRole: row.authorRole || "",
+            authorBio: row.authorBio || "",
+            authorImage: row.authorImage ? `${row.authorImage}?w=200&q=75&auto=format` : "",
+          } as BlogPostDetail;
           return {
-            post: {
-              ...toSummary(row),
-              body: Array.isArray(row.body) && row.body.length > 0 ? row.body : [],
-            } as BlogPostDetail,
+            post,
+            related: await relatedPosts(post.slug, post.category),
             source: "sanity" as const,
           };
         }
@@ -145,5 +198,10 @@ export const getBlogPost = createServerFn({ method: "GET" })
         console.error("[blog-cms] Sanity detail failed, trying static:", e);
       }
     }
-    return { post: staticDetail(data.slug), source: "static" as const };
+    const post = staticDetail(data.slug);
+    return {
+      post,
+      related: post ? await relatedPosts(post.slug, post.category) : [],
+      source: "static" as const,
+    };
   });

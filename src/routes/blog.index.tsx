@@ -5,7 +5,7 @@ import { CTASection } from "@/components/CTASection";
 import { blogPosts as fallbackPosts } from "@/data/site";
 import { getBlogPosts } from "@/lib/blog-cms.server";
 
-export const Route = createFileRoute("/blog")({
+export const Route = createFileRoute("/blog/")({
   head: () => ({
     meta: [
       { title: "Political Marketing & Campaign Guides | Mum India Strategy Research Pvt Ltd" },

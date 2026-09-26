@@ -47,8 +47,56 @@ export const post = defineType({
       validation: (rule) => rule.required().max(300),
     }),
     defineField({
+      name: "metaTitle",
+      title: "SEO meta title",
+      type: "string",
+      description: "Shown in the browser tab and Google heading. Leave empty to use the normal title. Best within 60 characters.",
+      validation: (rule) => rule.max(70),
+    }),
+    defineField({
+      name: "metaDescription",
+      title: "SEO meta description",
+      type: "text",
+      rows: 2,
+      description: "Shown under the heading in Google results. Leave empty to use the excerpt. Best within 155 characters.",
+      validation: (rule) => rule.max(160),
+    }),
+    defineField({
+      name: "keywords",
+      title: "Keywords",
+      type: "array",
+      of: [{ type: "string" }],
+      description: "Type a keyword and press Add.",
+      options: { layout: "tags" },
+    }),
+    defineField({
       name: "mainImage",
       title: "Cover photo",
+      type: "image",
+      options: { hotspot: true },
+    }),
+    defineField({
+      name: "authorName",
+      title: "Writer name",
+      type: "string",
+      description: "Leave empty to show 'Team Mum India PR'.",
+      placeholder: "Writer's full name",
+    }),
+    defineField({
+      name: "authorRole",
+      title: "Writer role",
+      type: "string",
+      placeholder: "e.g. Content Writer",
+    }),
+    defineField({
+      name: "authorBio",
+      title: "Writer bio (2-3 lines)",
+      type: "text",
+      rows: 3,
+    }),
+    defineField({
+      name: "authorImage",
+      title: "Writer photo",
       type: "image",
       options: { hotspot: true },
     }),
@@ -64,6 +112,20 @@ export const post = defineType({
       title: "Article content",
       type: "array",
       of: [{ type: "block" }, { type: "image", options: { hotspot: true } }],
+    }),
+    defineField({
+      name: "faqs",
+      title: "FAQs (optional — accordion + Google snippet)",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            { name: "question", title: "Question", type: "string", validation: (rule) => rule.required() },
+            { name: "answer", title: "Answer", type: "text", rows: 3, validation: (rule) => rule.required() },
+          ],
+        },
+      ],
     }),
   ],
   preview: {

@@ -1,4 +1,5 @@
 import { Fragment } from "react";
+import { headingId } from "@/lib/blog-types";
 import type { PortableBlock, PortableSpan } from "@/lib/blog-types";
 
 function renderSpans(block: PortableBlock) {
@@ -68,18 +69,22 @@ export function PortableText({ blocks }: { blocks: PortableBlock[] }) {
     }
     flushList(`l-${key}`);
     const kids = renderSpans(b);
+    // Anchor ids power the table of contents (must match tocFromBlocks).
+    const anchor = ["h1", "h2", "h3", "h4"].includes(b.style ?? "")
+      ? headingId((b.children ?? []).map((s) => s.text).join(""))
+      : undefined;
     switch (b.style) {
       case "h1":
-        out.push(<h1 key={key} className="mt-8 text-3xl font-extrabold text-navy">{kids}</h1>);
+        out.push(<h1 key={key} id={anchor} className="mt-8 scroll-mt-24 text-3xl font-extrabold text-navy">{kids}</h1>);
         break;
       case "h2":
-        out.push(<h2 key={key} className="mt-8 text-2xl font-extrabold text-navy">{kids}</h2>);
+        out.push(<h2 key={key} id={anchor} className="mt-8 scroll-mt-24 text-2xl font-extrabold text-navy">{kids}</h2>);
         break;
       case "h3":
-        out.push(<h3 key={key} className="mt-6 text-xl font-bold text-navy">{kids}</h3>);
+        out.push(<h3 key={key} id={anchor} className="mt-6 scroll-mt-24 text-xl font-bold text-navy">{kids}</h3>);
         break;
       case "h4":
-        out.push(<h4 key={key} className="mt-6 text-lg font-bold text-navy">{kids}</h4>);
+        out.push(<h4 key={key} id={anchor} className="mt-6 scroll-mt-24 text-lg font-bold text-navy">{kids}</h4>);
         break;
       case "blockquote":
         out.push(
