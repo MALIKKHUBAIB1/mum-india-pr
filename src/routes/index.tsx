@@ -18,8 +18,9 @@ import { CTASection } from "@/components/CTASection";
 import { Button } from "@/components/ui/button";
 import { services as fallbackServices } from "@/data/services";
 import { plans, howItWorks } from "@/data/promotion";
-import { blogPosts, testimonials as fallbackTestimonials } from "@/data/site";
+import { blogPosts as fallbackBlogPosts, testimonials as fallbackTestimonials } from "@/data/site";
 import { getManagedContent } from "@/lib/content.server";
+import { getBlogPosts } from "@/lib/blog-cms.server";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -52,15 +53,22 @@ export const Route = createFileRoute("/")({
     try {
       const data = await getManagedContent();
       const imageBySlug = Object.fromEntries(fallbackServices.map((s) => [s.slug, s.image]));
+      let posts = fallbackBlogPosts;
+      try {
+        posts = (await getBlogPosts()).posts;
+      } catch {
+        // keep static fallback
+      }
       return {
         services: data.services.map((s) => ({
           ...s,
           image: (s.image || imageBySlug[s.slug]) ?? fallbackServices[0]!.image,
         })),
         testimonials: data.testimonials,
+        posts,
       };
     } catch {
-      return { services: fallbackServices, testimonials: fallbackTestimonials };
+      return { services: fallbackServices, testimonials: fallbackTestimonials, posts: fallbackBlogPosts };
     }
   },
   component: Index,
@@ -100,7 +108,7 @@ const strengths = [
 ];
 
 function Index() {
-  const { services, testimonials } = Route.useLoaderData();
+  const { services, testimonials, posts: blogPosts } = Route.useLoaderData();
   return (
     <>
       <HeroSection />
@@ -235,7 +243,7 @@ function Index() {
             </Button>
           </div>
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {blogPosts.map((post) => (
+            {blogPosts.slice(0, 4).map((post) => (
               <BlogCard key={post.slug} post={post} />
             ))}
           </div>

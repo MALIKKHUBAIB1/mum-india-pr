@@ -1,3 +1,4 @@
+import { Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays } from "lucide-react";
 
 export type BlogPost = {
@@ -34,13 +35,14 @@ export function BlogCard({ post }: { post: BlogPost }) {
           {post.title}
         </h3>
         <p className="mt-3 flex-1 text-sm leading-relaxed text-muted-foreground">{post.excerpt}</p>
-        <button
-          type="button"
+        <Link
+          to="/blog/$slug"
+          params={{ slug: post.slug }}
           className="mt-6 inline-flex w-fit cursor-pointer items-center gap-2 text-sm font-bold text-accent"
         >
           Read Article
           <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-        </button>
+        </Link>
       </div>
     </article>
   );
