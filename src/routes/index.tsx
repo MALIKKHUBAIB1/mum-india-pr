@@ -13,14 +13,12 @@ import { SectionHeading } from "@/components/SectionHeading";
 import { ServiceGrid } from "@/components/ServiceGrid";
 import { PricingCard } from "@/components/PricingCard";
 import { TestimonialCard } from "@/components/TestimonialCard";
-import { BlogCard } from "@/components/BlogCard";
 import { CTASection } from "@/components/CTASection";
 import { Button } from "@/components/ui/button";
 import { services as fallbackServices } from "@/data/services";
 import { plans, howItWorks } from "@/data/promotion";
-import { blogPosts as fallbackBlogPosts, testimonials as fallbackTestimonials } from "@/data/site";
+import { testimonials as fallbackTestimonials } from "@/data/site";
 import { getManagedContent } from "@/lib/content.server";
-import { getBlogPosts } from "@/lib/blog-cms.server";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -53,22 +51,15 @@ export const Route = createFileRoute("/")({
     try {
       const data = await getManagedContent();
       const imageBySlug = Object.fromEntries(fallbackServices.map((s) => [s.slug, s.image]));
-      let posts = fallbackBlogPosts;
-      try {
-        posts = (await getBlogPosts()).posts;
-      } catch {
-        // keep static fallback
-      }
       return {
         services: data.services.map((s) => ({
           ...s,
           image: (s.image || imageBySlug[s.slug]) ?? fallbackServices[0]!.image,
         })),
         testimonials: data.testimonials,
-        posts,
       };
     } catch {
-      return { services: fallbackServices, testimonials: fallbackTestimonials, posts: fallbackBlogPosts };
+      return { services: fallbackServices, testimonials: fallbackTestimonials };
     }
   },
   component: Index,
@@ -108,7 +99,7 @@ const strengths = [
 ];
 
 function Index() {
-  const { services, testimonials, posts: blogPosts } = Route.useLoaderData();
+  const { services, testimonials } = Route.useLoaderData();
   return (
     <>
       <HeroSection />
