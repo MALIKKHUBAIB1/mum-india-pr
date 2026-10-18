@@ -227,29 +227,6 @@ function Index() {
         </div>
       </section>
 
-      {/* Blog */}
-      <section className="section-y bg-background">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-            <SectionHeading
-              eyebrow="Insights"
-              title="Political marketing guides"
-              description="Practical writing on campaign strategy, branding and digital outreach."
-            />
-            <Button asChild variant="outlineAccent" size="lg" className="w-fit">
-              <Link to="/blog">
-                Read the Blog <ArrowRight className="size-4" />
-              </Link>
-            </Button>
-          </div>
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {blogPosts.slice(0, 4).map((post) => (
-              <BlogCard key={post.slug} post={post} />
-            ))}
-          </div>
-        </div>
-      </section>
-
       <CTASection
         title="Ready to strengthen your political presence?"
         description="Tell us about your region and requirement — our team will prepare a promotion approach suited to you."
